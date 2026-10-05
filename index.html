@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MEDITÉ | Tés de plantas medicinales</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Nunito:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --verde:#cfe0c3; --verde-suave:#e8f0e0; --verde-oscuro:#6f8f61;
+  --cafe:#c9ad92; --cafe-oscuro:#7a5c43; --crema:#faf7f2; --texto:#4a3b2e;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Nunito',sans-serif;background:var(--crema);color:var(--texto);line-height:1.6}
+h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:600}
+
+/* Bienvenida */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:2rem;background:linear-gradient(160deg,var(--verde) 0%,var(--verde-suave) 55%,#efe3d4 100%)}
+.hero p.hola{font-size:1.1rem;color:var(--cafe-oscuro);margin-bottom:.5rem}
+.hero h1{font-size:clamp(3.5rem,14vw,8rem);letter-spacing:.12em;color:var(--cafe-oscuro);line-height:1}
+.hero p.lema{max-width:30rem;margin:1.2rem 0 2rem;font-size:1.1rem}
+.btn{display:inline-block;padding:.8rem 2rem;border-radius:2rem;background:var(--cafe-oscuro);color:#fff;
+  text-decoration:none;transition:background .3s}
+.btn:hover,.btn:focus-visible{background:var(--verde-oscuro)}
+
+/* Hojas decorativas */
+.hero{position:relative;overflow:hidden}
+.hero > *:not(.rama):not(.dibujo){position:relative;z-index:1}
+.dibujo{position:absolute;pointer-events:none}
+.dibujo .trazo{stroke:var(--cafe-oscuro);stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round}
+.tetera{width:clamp(95px,17vw,200px);bottom:5%;left:5%;transform:rotate(-4deg)}
+.bolsita{width:clamp(45px,7vw,85px);top:34%;right:7%;transform:rotate(14deg)}
+.tetera .cuerpo{fill:#f6efe6}
+.tetera .detalle{fill:var(--verde)}
+.tetera .vapor{fill:none;stroke:var(--cafe-oscuro);stroke-width:2.5;stroke-linecap:round;opacity:.35}
+.bolsita .papel{fill:#fbf8f3}
+.bolsita .etiqueta{fill:var(--verde)}
+@media (max-width:600px){
+  .tetera{bottom:2%;left:3%;width:90px}
+  .bolsita{top:6%;right:6%;width:42px}
+}
+.rama{position:absolute;color:var(--verde-oscuro);opacity:.28;pointer-events:none}
+.rama.a{width:clamp(130px,22vw,260px);top:-20px;left:-10px;transform:rotate(150deg)}
+.rama.b{width:clamp(150px,26vw,300px);bottom:-30px;right:-10px;transform:rotate(-8deg)}
+.rama.c{width:clamp(70px,10vw,120px);top:14%;right:12%;transform:rotate(35deg);color:var(--cafe-oscuro);opacity:.2}
+.divisor{display:flex;align-items:center;justify-content:center;gap:.8rem;margin:.6rem auto 0;max-width:260px;color:var(--verde-oscuro)}
+.divisor::before,.divisor::after{content:"";flex:1;height:1px;background:var(--cafe)}
+.divisor svg{width:26px;height:26px}
+.productos{position:relative}
+.productos .rama.d{width:140px;top:30px;right:-30px;transform:rotate(-120deg);opacity:.18}
+
+/* Productos */
+.productos{max-width:1150px;margin:0 auto;padding:5rem 1.5rem}
+.productos h2{text-align:center;font-size:2.4rem;color:var(--cafe-oscuro)}
+.productos .sub{text-align:center;margin:.3rem 0 3rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:2rem}
+.card{background:#fff;border-radius:1rem;overflow:hidden;border:1px solid #eadfd2;display:flex;flex-direction:column}
+.card .foto{aspect-ratio:4/3;background:var(--verde-suave);display:flex;align-items:center;justify-content:center;
+  font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--verde-oscuro)}
+.card img{width:100%;height:100%;object-fit:cover;display:block}
+.card .info{padding:1.3rem;display:flex;flex-direction:column;gap:.5rem;flex:1}
+.card h3{font-size:1.6rem;color:var(--cafe-oscuro)}
+.precio{display:inline-block;align-self:flex-start;background:var(--verde);color:#3f5a34;
+  padding:.15rem .8rem;border-radius:1rem;font-weight:600}
+.card p{font-size:.95rem}
+
+footer{background:var(--cafe);color:#fff;text-align:center;padding:2rem 1rem;font-size:.95rem}
+
+/* WhatsApp */
+.whatsapp{position:fixed;bottom:20px;right:20px;width:60px;height:60px;border-radius:50%;background:#25d366;
+  display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.25);z-index:10;
+  transition:transform .2s}
+.whatsapp:hover,.whatsapp:focus-visible{transform:scale(1.1)}
+.whatsapp svg{width:34px;height:34px;fill:#fff}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="hoja" viewBox="-2 -22 64 44"><path d="M0 0C14-20 46-20 60 0C46 20 14 20 0 0Z" fill="currentColor"/><path d="M0 0H56" stroke="#fff" stroke-opacity=".6" stroke-width="1.5"/></symbol>
+    <symbol id="rama" viewBox="0 0 200 300">
+      <path d="M100 295C96 200 104 110 100 20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+      <g fill="currentColor">
+        <path transform="translate(99 245) rotate(-35)" d="M0 0C14-20 46-20 60 0C46 20 14 20 0 0Z"/>
+        <path transform="translate(99 200) rotate(-145)" d="M0 0C14-20 46-20 60 0C46 20 14 20 0 0Z"/>
+        <path transform="translate(101 155) rotate(-35)" d="M0 0C14-20 46-20 60 0C46 20 14 20 0 0Z"/>
+        <path transform="translate(101 110) rotate(-145)" d="M0 0C14-20 46-20 60 0C46 20 14 20 0 0Z"/>
+        <path transform="translate(100 65) rotate(-35)" d="M0 0C14-20 46-20 60 0C46 20 14 20 0 0Z"/>
+        <path transform="translate(100 40) rotate(-145)" d="M0 0C14-20 46-20 60 0C46 20 14 20 0 0Z"/>
+        <path transform="translate(100 22) rotate(-90)" d="M0 0C14-20 46-20 60 0C46 20 14 20 0 0Z"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<header class="hero">
+  <svg class="rama a" viewBox="0 0 200 300" aria-hidden="true"><use href="#rama"/></svg>
+  <svg class="rama b" viewBox="0 0 200 300" aria-hidden="true"><use href="#rama"/></svg>
+  <svg class="rama c" viewBox="0 0 200 300" aria-hidden="true"><use href="#rama"/></svg>
+  <svg class="dibujo tetera" viewBox="0 -22 200 160" aria-hidden="true">
+    <path class="vapor" d="M88 18C80 8 96 0 88 -10C84 -15 88 -19 90 -21"/>
+    <path class="vapor" d="M110 18C102 8 118 0 110 -10"/>
+    <path class="trazo" fill="none" style="stroke-width:7" d="M47 68C14 64 14 114 50 108"/>
+    <path class="trazo detalle" style="fill:#f6efe6" d="M153 76C170 72 178 56 187 48C192 45 195 50 192 55C186 68 173 88 154 98Z"/>
+    <path class="trazo cuerpo" d="M45 82C45 52 70 42 100 42S155 52 155 82C155 114 135 130 100 130S45 114 45 82Z"/>
+    <path class="trazo cuerpo" d="M70 44C75 28 125 28 130 44Z"/>
+    <circle class="trazo detalle" cx="100" cy="25" r="6"/>
+    <path d="M62 100C75 108 125 108 138 100" fill="none" stroke="var(--cafe)" stroke-width="2" stroke-linecap="round"/>
+    <g style="color:var(--verde-oscuro)"><use href="#hoja" x="76" y="62" width="48" height="33"/></g>
+    <ellipse cx="100" cy="132" rx="46" ry="5" fill="var(--cafe)" opacity=".5"/>
+  </svg>
+  <svg class="dibujo bolsita" viewBox="0 0 80 140" aria-hidden="true">
+    <path class="trazo" fill="none" style="stroke-width:1.5" d="M40 44C40 30 52 28 58 22"/>
+    <rect class="trazo etiqueta" x="48" y="2" width="22" height="24" rx="3"/>
+    <g style="color:var(--verde-oscuro)"><use href="#hoja" x="52" y="8" width="14" height="10"/></g>
+    <path class="trazo papel" d="M16 46H64L68 108Q40 120 12 108Z"/>
+    <path d="M18 54H62" stroke="var(--cafe)" stroke-width="1.5" stroke-dasharray="3 3" fill="none"/>
+    <g style="color:var(--verde-oscuro)"><use href="#hoja" x="26" y="68" width="28" height="19"/></g>
+  </svg>
+  <p class="hola">Bienvenido a</p>
+  <h1>MEDITÉ</h1>
+  <p class="lema">Tés de plantas medicinales, para un momento de calma en tu día.</p>
+  <a class="btn" href="#productos">Ver nuestros tés</a>
+</header>
+
+<main class="productos" id="productos">
+  <svg class="rama d" viewBox="0 0 200 300" aria-hidden="true"><use href="#rama"/></svg>
+  <h2>Nuestros tés</h2>
+  <div class="divisor" aria-hidden="true"><svg viewBox="-2 -22 64 44"><use href="#hoja"/></svg></div>
+  <p class="sub">Caja con bolsitas de té. Precio por caja.</p>
+  <div class="grid" id="lista"></div>
+</main>
+
+<footer>MEDITÉ · Pedidos por WhatsApp: 72857796</footer>
+
+<a class="whatsapp" id="wa" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp">
+  <svg viewBox="0 0 32 32"><path d="M16 3C9 3 3.3 8.6 3.3 15.5c0 2.3.6 4.4 1.7 6.3L3 29l7.4-1.9c1.8 1 3.8 1.500 5.900 1.500 7 0 12.700-5.600 12.700-12.500S23 3 16 3zm0 22.900c-1.900 0-3.700-.5-5.300-1.500l-.4-.2-4.400 1.100 1.200-4.200-.3-.4a10.200 10.200 0 0 1-1.600-5.500C5.200 9.700 10 5.100 16 5.100s10.800 4.600 10.800 10.300S22 25.900 16 25.900zm5.900-7.700c-.3-.2-1.900-.9-2.200-1-.3-.1-.5-.2-.7.200-.2.300-.8 1-1 1.200-.2.200-.4.200-.7.100-.3-.2-1.400-.5-2.600-1.600-1-.9-1.600-1.900-1.800-2.200-.2-.3 0-.5.100-.7l.5-.6c.2-.2.200-.3.300-.5.100-.2.100-.4 0-.6-.1-.2-.7-1.700-1-2.300-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.100-.9.400-.3.300-1.200 1.200-1.200 2.800s1.200 3.300 1.400 3.500c.2.200 2.400 3.700 5.800 5.100.8.400 1.400.6 1.900.7.8.3 1.500.2 2.100.1.600-.1 1.900-.8 2.200-1.500.3-.8.3-1.400.2-1.500-.1-.2-.3-.3-.6-.4z"/></svg>
+</a>
+
+<script>
+// Para fotos reales: guarda tus imágenes en una carpeta "img" junto a este index.html
+// con los nombres indicados abajo (por ejemplo img/hierba-buena.jpg).
+const NUMERO = "59172857796"; // 591 = Bolivia
+const productos = [
+  {n:"Hierba Buena", p:15, img:"hierba-buena", d:"Alivia la indigestión, los gases y las náuseas. Refresca el aliento y relaja el estómago."},
+  {n:"Cedrón", p:15, img:"cedron", d:"Calma los nervios y ayuda a conciliar el sueño. También favorece la digestión."},
+  {n:"Boldo", p:15, img:"boldo", d:"Apoya la función del hígado y la vesícula. Ayuda en digestiones pesadas."},
+  {n:"Eucalipto", p:15, img:"eucalipto", d:"Despeja las vías respiratorias y ayuda a aliviar la tos y la congestión."},
+  {n:"Hoja de naranja", p:15, img:"hoja-de-naranja", d:"Tiene efecto relajante, ayuda a descansar mejor y a calmar la ansiedad leve."},
+  {n:"Hoja de guayaba", p:15, img:"hoja-de-guayaba", d:"Tradicionalmente usada para calmar el dolor de estómago y la diarrea leve."},
+  {n:"Romero", p:15, img:"romero", d:"Estimula la memoria y la circulación. Ayuda a la digestión y da energía."}
+];
+
+const lista = document.getElementById("lista");
+lista.innerHTML = productos.map(x => `
+  <article class="card">
+    <div class="foto">
+      <img src="img/${x.img}.jpg" alt="Caja y bolsitas de té de ${x.n}" loading="lazy"
+           onerror="this.parentNode.textContent='${x.n}'">
+    </div>
+    <div class="info">
+      <h3>${x.n}</h3>
+      <span class="precio">Bs ${x.p}</span>
+      <p>${x.d}</p>
+    </div>
+  </article>`).join("");
+
+document.getElementById("wa").href =
+  `https://wa.me/${NUMERO}?text=${encodeURIComponent("Hola, quisiera pedir tés MEDITÉ.")}`;
+</script>
+</body>
+</html>
